@@ -37,7 +37,8 @@
         Square150x150Logo="Assets\Square150x150Logo.png"
         Square44x44Logo="Assets\Square44x44Logo.png"
         Description="Gamebar Crosshair"
-        BackgroundColor="transparent">
+        BackgroundColor="transparent"
+        AppListEntry="none">
         <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png"/>
         <uap:SplashScreen Image="Assets\SplashScreen.png" />
       </uap:VisualElements>
@@ -69,6 +70,16 @@
               </GameBarWidget>
             </uap3:Properties>
           </uap3:AppExtension>
+		  <!--<uap3:AppExtension Name="microsoft.gameBarUIExtension"
+						     Id="settings"
+						     DisplayName="Settings"
+						     Description="Settings"
+						     PublicFolder="GameBar\Settings">
+		    <uap3:Properties>
+			  <GameBarWidget Type="Settings">
+			  </GameBarWidget>
+		    </uap3:Properties>
+		  </uap3:AppExtension>-->
         </uap3:Extension>
       </Extensions>
     </Application>
