@@ -16,70 +16,69 @@ using Windows.UI.Xaml.Shapes;
 
 namespace Gamebar_Crosshair
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
+
     public sealed partial class Crosshair : Page
     {
-        Rectangle vertical_line = new Rectangle();
-        Rectangle horizontal_line = new Rectangle();
+        Rectangle verticalLine = new Rectangle();
+        Rectangle horizontalLine = new Rectangle();
 
         Windows.UI.Color color = Windows.UI.Colors.Red;
         double length = 50;
         double thickness = 1;
 
-        private void LengthSlider_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
+        private void lengthSliderValueChanged(object sender, RangeBaseValueChangedEventArgs e)
         {
-            Slider slider = sender as Slider;
-            if (slider != null)
+			if (sender is Slider slider)
             {
                 length = slider.Value;
             }
 
-            vertical_line.Height = length;
-            horizontal_line.Width = length;
+            verticalLine.Height = length;
+            horizontalLine.Width = length;
         }
 
-        private void ThicknessSlider_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
+        private void thicknessSliderValueChanged(object sender, RangeBaseValueChangedEventArgs e)
         {
-            Slider slider = sender as Slider;
-            if (slider != null)
+			if (sender is Slider slider)
             {
                 thickness = slider.Value;
             }
 
-            vertical_line.Width = thickness;
-            horizontal_line.Height = thickness;
+            verticalLine.Width = thickness;
+            horizontalLine.Height = thickness;
         }
 
         public Crosshair()
         {
             this.InitializeComponent();
 
-            Slider lengthSlider = new Slider();
-            lengthSlider.Header = "Length";
-            lengthSlider.Width = 200;
-            lengthSlider.Minimum = 1;
-            lengthSlider.Maximum = 150;
-            lengthSlider.Value = length;
-            lengthSlider.ValueChanged += LengthSlider_ValueChanged;
+			Slider lengthSlider = new Slider
+			{
+				Header = "Length",
+				Width = 200,
+				Minimum = 1,
+				Maximum = 150,
+				Value = length
+			};
+			lengthSlider.ValueChanged += lengthSliderValueChanged;
             layoutRoot.Children.Add(lengthSlider);
 
-            //Slider thicknessSlider = new Slider();
-            //thicknessSlider.Header = "Thickness";
-            //thicknessSlider.Width = 200;
-            //thicknessSlider.ValueChanged += ThicknessSlider_ValueChanged;
-            //layoutRoot.Children.Add(thicknessSlider);
+			Slider thicknessSlider = new Slider
+			{
+				Header = "Thickness", Width = 200
+			};
+			thicknessSlider.ValueChanged += thicknessSliderValueChanged;
+			layoutRoot.Children.Add(thicknessSlider);
 
-            vertical_line.Fill = new SolidColorBrush(color);
-            vertical_line.Width = thickness;
-            vertical_line.Height = length;
-            layoutRoot.Children.Add(vertical_line);
+			verticalLine.Fill = new SolidColorBrush(color);
+			verticalLine.Width = thickness;
+			verticalLine.Height = length;
+            layoutRoot.Children.Add(verticalLine);
 
-            horizontal_line.Fill = new SolidColorBrush(color);
-            horizontal_line.Width = length;
-            horizontal_line.Height = thickness;
-            layoutRoot.Children.Add(horizontal_line);
+            horizontalLine.Fill = new SolidColorBrush(color);
+			horizontalLine.Width = length;
+			horizontalLine.Height = thickness;
+            layoutRoot.Children.Add(horizontalLine);
         }
     }
 }
