@@ -24,6 +24,7 @@ namespace Gamebar_Crosshair
     sealed partial class App : Application
     {
         private XboxGameBarWidget crosshair = null;
+        private XboxGameBarWidget settings = null;
 
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
@@ -55,20 +56,32 @@ namespace Gamebar_Crosshair
                     rootFrame.NavigationFailed += OnNavigationFailed;
                     Window.Current.Content = rootFrame;
 
-                    // Create Game Bar widget object which bootstraps the connection with Game Bar
-                    crosshair = new XboxGameBarWidget(
-                        widgetArgs,
-                        Window.Current.CoreWindow,
-                        rootFrame);
-                    rootFrame.Navigate(typeof(Crosshair));
+                    if (widgetArgs.AppExtensionId == "Crosshair")
+                    {
+                        crosshair = new XboxGameBarWidget(
+                            widgetArgs,
+                            Window.Current.CoreWindow,
+                            rootFrame);
+                        rootFrame.Navigate(typeof(Crosshair), crosshair);
 
-                    Window.Current.Closed += CrosshairWindow_Closed;
+                        Window.Current.Closed += CrosshairWindow_Closed;
+                    }
+                    else if (widgetArgs.AppExtensionId == "Settings")
+                    {
+                        settings = new XboxGameBarWidget(
+                            widgetArgs,
+                            Window.Current.CoreWindow,
+                            rootFrame);
+                        rootFrame.Navigate(typeof(Settings));
+
+                        Window.Current.Closed += SettingsWindow_Closed;
+                    }
+                    else
+                    {
+                        return;
+                    }
 
                     Window.Current.Activate();
-                }
-                else
-                {
-                    // TODO perform whatever behavior you need based on the URI payload.
                 }
             }
         }
@@ -77,6 +90,12 @@ namespace Gamebar_Crosshair
         {
             crosshair = null;
             Window.Current.Closed -= CrosshairWindow_Closed;
+        }
+
+        private void SettingsWindow_Closed(object sender, Windows.UI.Core.CoreWindowEventArgs e)
+        {
+            settings = null;
+            Window.Current.Closed -= SettingsWindow_Closed;
         }
 
         /// <summary>

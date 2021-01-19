@@ -1,0 +1,30 @@
+<Page
+    x:Class="Gamebar_Crosshair.Settings"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Gamebar_Crosshair"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid>
+		<ScrollViewer
+			HorizontalScrollBarVisibility="Auto" 
+			VerticalScrollBarVisibility="Visible">
+			<StackPanel
+				Padding="10"
+				Orientation="Vertical"
+				Background="White">
+				<Grid
+					x:Name="layoutLength"
+					Grid.Row="0"/>
+				<Grid
+					x:Name="layoutThickness"
+					Grid.Row="1"/>
+				<Viewbox Margin="5" MaxWidth="250" Stretch="Fill">
+					<ColorPicker x:Name="myColorPicker"/>
+				</Viewbox>
+			</StackPanel>
+		</ScrollViewer>
+	</Grid>
+</Page>

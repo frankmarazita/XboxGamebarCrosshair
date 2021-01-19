@@ -42,10 +42,12 @@
         <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png"/>
         <uap:SplashScreen Image="Assets\SplashScreen.png" />
       </uap:VisualElements>
+
       <Extensions>
-        <uap3:Extension Category="windows.appExtension">
+        
+		<uap3:Extension Category="windows.appExtension">
           <uap3:AppExtension Name="microsoft.gameBarUIExtension"
-                             Id="gamebarcrosshair"
+                             Id="Crosshair"
                              DisplayName="Gamebar Crosshair"
                              Description="An onscreeen crosshair of Windows Gamebar"
                              PublicFolder="GameBar">
@@ -53,6 +55,7 @@
               <GameBarWidget Type="Standard">
                 <HomeMenuVisible>true</HomeMenuVisible>
                 <PinningSupported>true</PinningSupported>
+				<SettingsSupported AppExtensionId="Settings" />
                 <Window>
                   <Size>
                     <Height>300</Height>
@@ -70,17 +73,31 @@
               </GameBarWidget>
             </uap3:Properties>
           </uap3:AppExtension>
-		  <!--<uap3:AppExtension Name="microsoft.gameBarUIExtension"
-						     Id="settings"
-						     DisplayName="Settings"
-						     Description="Settings"
-						     PublicFolder="GameBar\Settings">
-		    <uap3:Properties>
-			  <GameBarWidget Type="Settings">
-			  </GameBarWidget>
-		    </uap3:Properties>
-		  </uap3:AppExtension>-->
         </uap3:Extension>
+
+		<uap3:Extension Category="windows.appExtension">
+			<uap3:AppExtension Name="microsoft.gameBarUIExtension"
+								Id="Settings"
+								DisplayName="Settings"
+								Description="Settings"
+								PublicFolder="GameBar">
+				<uap3:Properties>
+					<GameBarWidget Type="Settings">
+						<Window>
+							<Size>
+								<Height>300</Height>
+								<Width>300</Width>
+							</Size>
+							<ResizeSupported>
+								<Horizontal>false</Horizontal>
+								<Vertical>true</Vertical>
+							</ResizeSupported>
+						</Window>
+					</GameBarWidget>
+				</uap3:Properties>
+			</uap3:AppExtension>
+		</uap3:Extension>
+		  
       </Extensions>
     </Application>
   </Applications>
