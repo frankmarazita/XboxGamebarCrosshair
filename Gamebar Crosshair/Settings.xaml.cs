@@ -25,30 +25,35 @@ namespace Gamebar_Crosshair
 		Rectangle verticalLine = new Rectangle();
 		Rectangle horizontalLine = new Rectangle();
 
-		double length = 50;
-		double thickness = 1;
-
 		private void lengthSliderValueChanged(object sender, RangeBaseValueChangedEventArgs e)
 		{
 			if (sender is Slider slider)
 			{
-				length = slider.Value;
+				CrosshairData.length = slider.Value;
 			}
 
-			verticalLine.Height = length;
-			horizontalLine.Width = length;
+			verticalLine.Height = CrosshairData.length;
+			horizontalLine.Width = CrosshairData.length;
 		}
 
 		private void thicknessSliderValueChanged(object sender, RangeBaseValueChangedEventArgs e)
 		{
 			if (sender is Slider slider)
 			{
-				thickness = slider.Value;
+				CrosshairData.thickness = slider.Value;
 			}
 
-			verticalLine.Width = thickness;
-			horizontalLine.Height = thickness;
+			verticalLine.Width = CrosshairData.thickness;
+			horizontalLine.Height = CrosshairData.thickness;
 		}
+
+		private void colorPickerColorChanged(object sender, ColorChangedEventArgs e)
+        {
+			if (sender is ColorPicker colorPicker)
+            {
+                 CrosshairData.color = colorPicker.Color;
+            }
+        }
 
 		public Settings()
         {
@@ -60,7 +65,7 @@ namespace Gamebar_Crosshair
 				Width = 200,
 				Minimum = 1,
 				Maximum = 150,
-				Value = length
+				Value = CrosshairData.length
 			};
 			lengthSlider.ValueChanged += lengthSliderValueChanged;
 			layoutLength.Children.Add(lengthSlider);
@@ -68,12 +73,17 @@ namespace Gamebar_Crosshair
 			Slider thicknessSlider = new Slider
 			{
 				Header = "Thickness",
-				Width = 200
+				Width = 200,
+				Minimum = 1,
+				Maximum = 150,
+				Value = CrosshairData.thickness
 			};
 			thicknessSlider.ValueChanged += thicknessSliderValueChanged;
 			layoutThickness.Children.Add(thicknessSlider);
+
+			ColorPicker colorPicker = new ColorPicker();
+			colorPicker.ColorChanged += colorPickerColorChanged;
+			myColorPicker.Children.Add(colorPicker);
 		}
-
-
     }
 }

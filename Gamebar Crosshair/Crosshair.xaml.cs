@@ -27,62 +27,18 @@ namespace Gamebar_Crosshair
         Rectangle verticalLine = new Rectangle();
         Rectangle horizontalLine = new Rectangle();
 
-        Windows.UI.Color color = Windows.UI.Colors.Red;
-        double length = 50;
-        double thickness = 1;
-
-        private void lengthSliderValueChanged(object sender, RangeBaseValueChangedEventArgs e)
-        {
-			if (sender is Slider slider)
-            {
-                length = slider.Value;
-            }
-
-            verticalLine.Height = length;
-            horizontalLine.Width = length;
-        }
-
-        private void thicknessSliderValueChanged(object sender, RangeBaseValueChangedEventArgs e)
-        {
-			if (sender is Slider slider)
-            {
-                thickness = slider.Value;
-            }
-
-            verticalLine.Width = thickness;
-            horizontalLine.Height = thickness;
-        }
-
         public Crosshair()
         {
             this.InitializeComponent();
 
-			Slider lengthSlider = new Slider
-			{
-				Header = "Length",
-				Width = 200,
-				Minimum = 1,
-				Maximum = 150,
-				Value = length
-			};
-			lengthSlider.ValueChanged += lengthSliderValueChanged;
-            layoutRoot.Children.Add(lengthSlider);
-
-			Slider thicknessSlider = new Slider
-			{
-				Header = "Thickness", Width = 200
-			};
-			thicknessSlider.ValueChanged += thicknessSliderValueChanged;
-			layoutRoot.Children.Add(thicknessSlider);
-
-			verticalLine.Fill = new SolidColorBrush(color);
-			verticalLine.Width = thickness;
-			verticalLine.Height = length;
+			verticalLine.Fill = new SolidColorBrush(CrosshairData.color);
+			verticalLine.Width = CrosshairData.thickness;
+			verticalLine.Height = CrosshairData.length;
             layoutRoot.Children.Add(verticalLine);
 
-            horizontalLine.Fill = new SolidColorBrush(color);
-			horizontalLine.Width = length;
-			horizontalLine.Height = thickness;
+            horizontalLine.Fill = new SolidColorBrush(CrosshairData.color);
+			horizontalLine.Width = CrosshairData.length;
+			horizontalLine.Height = CrosshairData.thickness;
             layoutRoot.Children.Add(horizontalLine);
         }
 

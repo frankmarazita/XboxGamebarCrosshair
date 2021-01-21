@@ -21,8 +21,11 @@
 				<Grid
 					x:Name="layoutThickness"
 					Grid.Row="1"/>
-				<Viewbox Margin="5" MaxWidth="250" Stretch="Fill">
-					<ColorPicker x:Name="myColorPicker"/>
+				<Viewbox
+					Margin="5"
+					MaxWidth="250"
+					Stretch="Fill">
+					<Grid x:Name="myColorPicker"/>
 				</Viewbox>
 			</StackPanel>
 		</ScrollViewer>
