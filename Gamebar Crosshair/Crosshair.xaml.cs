@@ -16,6 +16,7 @@ using Windows.UI.Xaml.Shapes;
 using Microsoft.Gaming.XboxGameBar;
 using System.Diagnostics;
 using Microsoft.Gaming.XboxGameBar.Authentication;
+using Windows.UI.Core;
 
 namespace Gamebar_Crosshair
 {
@@ -24,22 +25,28 @@ namespace Gamebar_Crosshair
     {
         private XboxGameBarWidget widget = null;
 
-        Rectangle verticalLine = new Rectangle();
-        Rectangle horizontalLine = new Rectangle();
+        static Rectangle verticalLine = new Rectangle();
+        static Rectangle horizontalLine = new Rectangle();
 
         public Crosshair()
         {
             this.InitializeComponent();
 
-			verticalLine.Fill = new SolidColorBrush(CrosshairData.color);
-			verticalLine.Width = CrosshairData.thickness;
-			verticalLine.Height = CrosshairData.length;
             layoutRoot.Children.Add(verticalLine);
+            layoutRoot.Children.Add(horizontalLine);
+
+            drawCrosshair();
+        }
+
+        static void drawCrosshair()
+        {
+            verticalLine.Fill = new SolidColorBrush(CrosshairData.color);
+            verticalLine.Width = CrosshairData.thickness;
+            verticalLine.Height = CrosshairData.length;
 
             horizontalLine.Fill = new SolidColorBrush(CrosshairData.color);
-			horizontalLine.Width = CrosshairData.length;
-			horizontalLine.Height = CrosshairData.thickness;
-            layoutRoot.Children.Add(horizontalLine);
+            horizontalLine.Width = CrosshairData.length;
+            horizontalLine.Height = CrosshairData.thickness;
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -51,6 +58,11 @@ namespace Gamebar_Crosshair
 
         private async void Widget_SettingsClicked(XboxGameBarWidget sender, object args)
         {
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            {
+                drawCrosshair();
+            });
+
             await widget.ActivateSettingsAsync();
         }
     }
