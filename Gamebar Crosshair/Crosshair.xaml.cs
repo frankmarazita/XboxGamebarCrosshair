@@ -13,72 +13,57 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Windows.UI.Xaml.Shapes;
+using Microsoft.Gaming.XboxGameBar;
+using System.Diagnostics;
+using Microsoft.Gaming.XboxGameBar.Authentication;
+using Windows.UI.Core;
 
 namespace Gamebar_Crosshair
 {
 
     public sealed partial class Crosshair : Page
     {
-        Rectangle verticalLine = new Rectangle();
-        Rectangle horizontalLine = new Rectangle();
+        private XboxGameBarWidget widget = null;
 
-        Windows.UI.Color color = Windows.UI.Colors.Red;
-        double length = 50;
-        double thickness = 1;
-
-        private void lengthSliderValueChanged(object sender, RangeBaseValueChangedEventArgs e)
-        {
-			if (sender is Slider slider)
-            {
-                length = slider.Value;
-            }
-
-            verticalLine.Height = length;
-            horizontalLine.Width = length;
-        }
-
-        private void thicknessSliderValueChanged(object sender, RangeBaseValueChangedEventArgs e)
-        {
-			if (sender is Slider slider)
-            {
-                thickness = slider.Value;
-            }
-
-            verticalLine.Width = thickness;
-            horizontalLine.Height = thickness;
-        }
+        static Rectangle verticalLine = new Rectangle();
+        static Rectangle horizontalLine = new Rectangle();
 
         public Crosshair()
         {
             this.InitializeComponent();
 
-			Slider lengthSlider = new Slider
-			{
-				Header = "Length",
-				Width = 200,
-				Minimum = 1,
-				Maximum = 150,
-				Value = length
-			};
-			lengthSlider.ValueChanged += lengthSliderValueChanged;
-            layoutRoot.Children.Add(lengthSlider);
-
-			Slider thicknessSlider = new Slider
-			{
-				Header = "Thickness", Width = 200
-			};
-			thicknessSlider.ValueChanged += thicknessSliderValueChanged;
-			layoutRoot.Children.Add(thicknessSlider);
-
-			verticalLine.Fill = new SolidColorBrush(color);
-			verticalLine.Width = thickness;
-			verticalLine.Height = length;
             layoutRoot.Children.Add(verticalLine);
-
-            horizontalLine.Fill = new SolidColorBrush(color);
-			horizontalLine.Width = length;
-			horizontalLine.Height = thickness;
             layoutRoot.Children.Add(horizontalLine);
+
+            drawCrosshair();
+        }
+
+        static void drawCrosshair()
+        {
+            verticalLine.Fill = new SolidColorBrush(CrosshairData.color);
+            verticalLine.Width = CrosshairData.thickness;
+            verticalLine.Height = CrosshairData.length;
+
+            horizontalLine.Fill = new SolidColorBrush(CrosshairData.color);
+            horizontalLine.Width = CrosshairData.length;
+            horizontalLine.Height = CrosshairData.thickness;
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            widget = e.Parameter as XboxGameBarWidget;
+
+            widget.SettingsClicked += Widget_SettingsClicked;
+        }
+
+        private async void Widget_SettingsClicked(XboxGameBarWidget sender, object args)
+        {
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            {
+                drawCrosshair();
+            });
+
+            await widget.ActivateSettingsAsync();
         }
     }
 }
