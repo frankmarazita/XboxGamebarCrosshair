@@ -45,7 +45,7 @@
       <Extensions>
         <uap3:Extension Category="windows.appExtension">
           <uap3:AppExtension Name="microsoft.gameBarUIExtension"
-                             Id="gamebarcrosshair"
+                             Id="GamebarCrosshair"
                              DisplayName="Gamebar Crosshair"
                              Description="An onscreeen crosshair of Windows Gamebar"
                              PublicFolder="GameBar">
@@ -67,20 +67,59 @@
                     <Vertical>true</Vertical>
                   </ResizeSupported>
                 </Window>
+				<!-- insert a SettingsSupport element into your GameBarWidget, the AppExtensionId should match that of the additional widget you will create and use as a settings widget>-->
+				<SettingsSupported AppExtensionId="Settings" />
               </GameBarWidget>
             </uap3:Properties>
           </uap3:AppExtension>
-		  <!--<uap3:AppExtension Name="microsoft.gameBarUIExtension"
-						     Id="settings"
+		</uap3:Extension>
+
+		<uap3:Extension Category="windows.appExtension">
+		  <uap3:AppExtension Name="microsoft.gameBarUIExtension"
+						     Id="Crosshair"
+						     DisplayName="Crosshair"
+						     Description="Crosshair"
+						     PublicFolder="Crosshair">
+	        <uap3:Properties>
+		      <GameBarWidget Type="Crosshair">
+			    <Window>
+				  <Size>
+				    <Height>300</Height>
+					<Width>300</Width>
+				  </Size>
+				  <ResizeSupported>
+				    <Horizontal>true</Horizontal>
+					<Vertical>true</Vertical>
+				  </ResizeSupported>
+				</Window>
+		      </GameBarWidget>
+			</uap3:Properties>
+		  </uap3:AppExtension>
+		</uap3:Extension>
+		  
+		<uap3:Extension Category="windows.appExtension">
+		  <uap3:AppExtension Name="microsoft.gameBarUIExtension"
+						     Id="Settings"
 						     DisplayName="Settings"
 						     Description="Settings"
-						     PublicFolder="GameBar\Settings">
-		    <uap3:Properties>
-			  <GameBarWidget Type="Settings">
-			  </GameBarWidget>
-		    </uap3:Properties>
-		  </uap3:AppExtension>-->
-        </uap3:Extension>
+						     PublicFolder="Settings">
+	        <uap3:Properties>
+		      <GameBarWidget Type="Settings">
+			    <Window>
+				  <Size>
+				    <Height>300</Height>
+					<Width>300</Width>
+				  </Size>
+				  <ResizeSupported>
+				    <Horizontal>false</Horizontal>
+					<Vertical>false</Vertical>
+				  </ResizeSupported>
+				</Window>
+		      </GameBarWidget>
+			</uap3:Properties>
+		  </uap3:AppExtension>
+		</uap3:Extension>
+		  
       </Extensions>
     </Application>
   </Applications>
